@@ -19,7 +19,7 @@ struct ContentView: View {
         ZStack{
             
             
-         
+            //3d Character view
             MidLayer_3d_View()
             
             //=====UI view=====///

@@ -15,6 +15,10 @@
 		E096E7F72B05E1DB00794D0B /* Model3DData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E7F62B05E1DB00794D0B /* Model3DData.swift */; };
 		E096E7F92B05E89A00794D0B /* TopLayer_UI_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E7F82B05E89A00794D0B /* TopLayer_UI_View.swift */; };
 		E096E7FB2B05F50200794D0B /* MidLayer_3d_View.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */; };
+		E096E7FD2B05FC8000794D0B /* Cat_EAT.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E7FC2B05FC8000794D0B /* Cat_EAT.usdz */; };
+		E096E7FF2B05FC8A00794D0B /* Cat_LAUGHT.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E7FE2B05FC8A00794D0B /* Cat_LAUGHT.usdz */; };
+		E096E8012B05FC8F00794D0B /* Cat_TALK.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E8002B05FC8F00794D0B /* Cat_TALK.usdz */; };
+		E096E8032B05FC9500794D0B /* Cat_SLEEP.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +31,10 @@
 		E096E7F62B05E1DB00794D0B /* Model3DData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model3DData.swift; sourceTree = "<group>"; };
 		E096E7F82B05E89A00794D0B /* TopLayer_UI_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopLayer_UI_View.swift; sourceTree = "<group>"; };
 		E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidLayer_3d_View.swift; sourceTree = "<group>"; };
+		E096E7FC2B05FC8000794D0B /* Cat_EAT.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_EAT.usdz; sourceTree = "<group>"; };
+		E096E7FE2B05FC8A00794D0B /* Cat_LAUGHT.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_LAUGHT.usdz; sourceTree = "<group>"; };
+		E096E8002B05FC8F00794D0B /* Cat_TALK.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_TALK.usdz; sourceTree = "<group>"; };
+		E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_SLEEP.usdz; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +90,10 @@
 			isa = PBXGroup;
 			children = (
 				E096E7F62B05E1DB00794D0B /* Model3DData.swift */,
+				E096E7FE2B05FC8A00794D0B /* Cat_LAUGHT.usdz */,
+				E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */,
+				E096E8002B05FC8F00794D0B /* Cat_TALK.usdz */,
+				E096E7FC2B05FC8000794D0B /* Cat_EAT.usdz */,
 				E096E7F42B05E18A00794D0B /* Cat_IDLE.usdz */,
 			);
 			path = Models3DFiles;
@@ -145,9 +157,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E096E8032B05FC9500794D0B /* Cat_SLEEP.usdz in Resources */,
 				E096E7ED2B05E08400794D0B /* Preview Assets.xcassets in Resources */,
+				E096E8012B05FC8F00794D0B /* Cat_TALK.usdz in Resources */,
 				E096E7F52B05E18A00794D0B /* Cat_IDLE.usdz in Resources */,
+				E096E7FD2B05FC8000794D0B /* Cat_EAT.usdz in Resources */,
 				E096E7EA2B05E08400794D0B /* Assets.xcassets in Resources */,
+				E096E7FF2B05FC8A00794D0B /* Cat_LAUGHT.usdz in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
