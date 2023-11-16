@@ -19,6 +19,7 @@
 		E096E7FF2B05FC8A00794D0B /* Cat_LAUGHT.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E7FE2B05FC8A00794D0B /* Cat_LAUGHT.usdz */; };
 		E096E8012B05FC8F00794D0B /* Cat_TALK.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E8002B05FC8F00794D0B /* Cat_TALK.usdz */; };
 		E096E8032B05FC9500794D0B /* Cat_SLEEP.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */; };
+		E096E8052B06067D00794D0B /* ENVOBJECT.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E8042B06067D00794D0B /* ENVOBJECT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		E096E7FE2B05FC8A00794D0B /* Cat_LAUGHT.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_LAUGHT.usdz; sourceTree = "<group>"; };
 		E096E8002B05FC8F00794D0B /* Cat_TALK.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_TALK.usdz; sourceTree = "<group>"; };
 		E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_SLEEP.usdz; sourceTree = "<group>"; };
+		E096E8042B06067D00794D0B /* ENVOBJECT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENVOBJECT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		E096E7E42B05E08200794D0B /* Oscar */ = {
 			isa = PBXGroup;
 			children = (
+				E096E8042B06067D00794D0B /* ENVOBJECT.swift */,
 				E096E7E52B05E08200794D0B /* OscarApp.swift */,
 				E096E7E72B05E08200794D0B /* ContentView.swift */,
 				E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */,
@@ -175,6 +178,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E096E7F92B05E89A00794D0B /* TopLayer_UI_View.swift in Sources */,
+				E096E8052B06067D00794D0B /* ENVOBJECT.swift in Sources */,
 				E096E7E82B05E08200794D0B /* ContentView.swift in Sources */,
 				E096E7E62B05E08200794D0B /* OscarApp.swift in Sources */,
 				E096E7F72B05E1DB00794D0B /* Model3DData.swift in Sources */,
