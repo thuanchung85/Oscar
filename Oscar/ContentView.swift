@@ -7,20 +7,27 @@
 
 import SwiftUI
 
+
 struct ContentView: View {
+    
+   
+   
+    
+    
+   //====BODY===///
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundColor(.accentColor)
-            Text("Hello, world!")
+        ZStack{
+            
+            
+         
+            MidLayer_3d_View()
+            
+            //=====UI view=====///
+            TopLayer_UI_View(nameOf3dModel: "CAT")
+           
         }
-        .padding()
+       
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+
