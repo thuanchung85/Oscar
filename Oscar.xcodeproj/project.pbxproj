@@ -53,7 +53,6 @@
 		E096E7D92B05E08200794D0B = {
 			isa = PBXGroup;
 			children = (
-				E096E7F32B05E15100794D0B /* Models3DFiles */,
 				E096E7E42B05E08200794D0B /* Oscar */,
 				E096E7E32B05E08200794D0B /* Products */,
 			);
@@ -70,11 +69,12 @@
 		E096E7E42B05E08200794D0B /* Oscar */ = {
 			isa = PBXGroup;
 			children = (
+				E09942DA2B0716D100DE91C4 /* Pac3 */,
+				E09942D92B0716C200DE91C4 /* Pac2 */,
+				E09942D82B0716B600DE91C4 /* Pac1 */,
 				E096E8042B06067D00794D0B /* ENVOBJECT.swift */,
 				E096E7E52B05E08200794D0B /* OscarApp.swift */,
 				E096E7E72B05E08200794D0B /* ContentView.swift */,
-				E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */,
-				E096E7F82B05E89A00794D0B /* TopLayer_UI_View.swift */,
 				E096E7E92B05E08400794D0B /* Assets.xcassets */,
 				E096E7EB2B05E08400794D0B /* Preview Content */,
 			);
@@ -100,6 +100,30 @@
 				E096E7F42B05E18A00794D0B /* Cat_IDLE.usdz */,
 			);
 			path = Models3DFiles;
+			sourceTree = "<group>";
+		};
+		E09942D82B0716B600DE91C4 /* Pac1 */ = {
+			isa = PBXGroup;
+			children = (
+				E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */,
+			);
+			path = Pac1;
+			sourceTree = "<group>";
+		};
+		E09942D92B0716C200DE91C4 /* Pac2 */ = {
+			isa = PBXGroup;
+			children = (
+				E096E7F82B05E89A00794D0B /* TopLayer_UI_View.swift */,
+			);
+			path = Pac2;
+			sourceTree = "<group>";
+		};
+		E09942DA2B0716D100DE91C4 /* Pac3 */ = {
+			isa = PBXGroup;
+			children = (
+				E096E7F32B05E15100794D0B /* Models3DFiles */,
+			);
+			path = Pac3;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
