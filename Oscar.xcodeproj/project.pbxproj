@@ -21,6 +21,8 @@
 		E096E8032B05FC9500794D0B /* Cat_SLEEP.usdz in Resources */ = {isa = PBXBuildFile; fileRef = E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */; };
 		E096E8052B06067D00794D0B /* ENVOBJECT.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E8042B06067D00794D0B /* ENVOBJECT.swift */; };
 		E09942DD2B0724E300DE91C4 /* HelperUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DC2B0724E300DE91C4 /* HelperUI.swift */; };
+		E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */; };
+		E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		E096E8022B05FC9500794D0B /* Cat_SLEEP.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = Cat_SLEEP.usdz; sourceTree = "<group>"; };
 		E096E8042B06067D00794D0B /* ENVOBJECT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ENVOBJECT.swift; sourceTree = "<group>"; };
 		E09942DC2B0724E300DE91C4 /* HelperUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperUI.swift; sourceTree = "<group>"; };
+		E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServiceView.swift; sourceTree = "<group>"; };
+		E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,7 @@
 		E09942D82B0716B600DE91C4 /* Pac1 */ = {
 			isa = PBXGroup;
 			children = (
+				E096E7F32B05E15100794D0B /* Models3DFiles */,
 				E096E7FA2B05F50200794D0B /* MidLayer_3d_View.swift */,
 			);
 			path = Pac1;
@@ -124,7 +129,8 @@
 		E09942DA2B0716D100DE91C4 /* Pac3 */ = {
 			isa = PBXGroup;
 			children = (
-				E096E7F32B05E15100794D0B /* Models3DFiles */,
+				E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */,
+				E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */,
 			);
 			path = Pac3;
 			sourceTree = "<group>";
@@ -217,7 +223,9 @@
 				E096E7E82B05E08200794D0B /* ContentView.swift in Sources */,
 				E09942DD2B0724E300DE91C4 /* HelperUI.swift in Sources */,
 				E096E7E62B05E08200794D0B /* OscarApp.swift in Sources */,
+				E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */,
 				E096E7F72B05E1DB00794D0B /* Model3DData.swift in Sources */,
+				E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */,
 				E096E7FB2B05F50200794D0B /* MidLayer_3d_View.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -350,6 +358,8 @@
 				DEVELOPMENT_TEAM = 2SG8TQJQR9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need your permission to use the microphone to chat with your pet";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need your permission to convert audio to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -383,6 +393,8 @@
 				DEVELOPMENT_TEAM = 2SG8TQJQR9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "We need your permission to use the microphone to chat with your pet";
+				INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = "We need your permission to convert audio to text";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

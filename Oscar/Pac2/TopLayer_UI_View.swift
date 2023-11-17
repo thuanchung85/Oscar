@@ -14,22 +14,31 @@ struct TopLayer_UI_View: View {
     
    
     var nameOf3dModel :String
-    
-    
+    @State var speechRecognizerString = ""
+    @State private var isRecording = false
     
    //====BODY===///
     var body: some View {
        
             ZStack{
                 
-                Layer1()
-                    .environmentObject(OrientationInfo())
-                
+               
                 Layer2()
                     .environmentObject(OrientationInfo())
                 
                 Layer3(nameOf3dModel:nameOf3dModel)
                     .environmentObject(OrientationInfo())
+                
+                if(isRecording == true){
+                    layer4(isRecording:$isRecording)
+                        .environmentObject(OrientationInfo())
+                }
+                else
+                {
+                    Layer1(isRecording:$isRecording, speechRecognizerString: $speechRecognizerString)
+                        .environmentObject(OrientationInfo())
+                    
+                }
             }
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         
@@ -42,6 +51,9 @@ struct TopLayer_UI_View: View {
 struct Layer1:View{
    
     @EnvironmentObject var orientationInfo: OrientationInfo
+    @StateObject var speechRecognizer = SpeechRecognizer()
+    @Binding var isRecording:Bool
+    @Binding var speechRecognizerString:String
     
     //===BODY===//
     var body: some View {
@@ -51,7 +63,8 @@ struct Layer1:View{
                 //====BUTTON MICRO====//
                 HStack{
                     Button(action: {
-                        print("Circular Button tapped")
+                        callSpeech()
+                        
                     }) {
                         if #available(iOS 16.0, *) {
                             RoundedRectangle(cornerRadius: 50)
@@ -104,7 +117,7 @@ struct Layer1:View{
                 HStack{
                     Spacer()
                     Button(action: {
-                        print("Circular Button tapped")
+                        callSpeech()
                     }) {
                         if #available(iOS 16.0, *) {
                             RoundedRectangle(cornerRadius: 50)
@@ -149,7 +162,22 @@ struct Layer1:View{
             .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
     }
+    
+    //hàm gọi bật hiện cửa sổ nói chuyện
+    func callSpeech()
+    {
+        print("Circular Button tapped CALL SpeechRecorgnizer.swift")
+        if !isRecording {
+            speechRecognizer.transcribe()
+        } else {
+            speechRecognizer.stopTranscribing()
+        }
+        
+        isRecording.toggle()
+    }
 }
+
+
 //layer chứa avatar
 struct Layer2:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
@@ -167,6 +195,9 @@ struct Layer2:View{
         .frame(height:UIScreen.main.bounds.height)
     }
 }
+
+
+
 //layer chứa text tên
 struct Layer3:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
@@ -310,6 +341,59 @@ struct Layer3:View{
                 
             }//end Vstack
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .leading)
+        }
+    }
+}
+
+
+//layer chứa text nói của user
+struct layer4:View{
+    @EnvironmentObject var orientationInfo: OrientationInfo
+    @Binding var isRecording:Bool
+    
+    
+    var body: some View {
+        if(orientationInfo.orientation == .portrait){
+            ZStack{
+                VStack{
+                    Spacer()
+                    Text("HELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLO")
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.black)
+                        .padding(5)
+                        .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
+                        .background(.white.opacity(0.8))
+                        .border(.white, width: 1)
+                        .cornerRadius(15)
+                        .onTapGesture {
+                            isRecording.toggle()
+                        }
+                }
+                .padding()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+        }
+        
+        if(orientationInfo.orientation == .landscape){
+            ZStack{
+                VStack{
+                   Spacer()
+                    Text("HELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLO")
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.black)
+                        .padding(5)
+                        .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
+                        .background(.white.opacity(0.8))
+                        .border(.white, width: 1)
+                        .cornerRadius(15)
+                        .onTapGesture {
+                            isRecording.toggle()
+                        }
+                }
+                .padding()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottomTrailing)
+        
         }
     }
 }

@@ -22,14 +22,17 @@ struct ContentView: View {
    //====BODY===///
     var body: some View {
         ZStack{
-            
-            
+           
             //3d Character view
             MidLayer_3d_View( arr_Model3D_Data: $arr_Model3D_Data, currentModel3DFile: self.env.currentMode.modelName)
            
             //=====UI view=====///
             TopLayer_UI_View(nameOf3dModel: String(env.currentMode.name))
            
+            
+            //audio service
+            //AudioServiceView()
+            
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         .environmentObject(self.env)
