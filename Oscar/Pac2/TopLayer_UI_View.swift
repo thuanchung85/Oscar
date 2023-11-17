@@ -14,9 +14,12 @@ struct TopLayer_UI_View: View {
     
     @EnvironmentObject private var env: ENVOBJECT
     var nameOf3dModel :String
-    @State var speechRecognizerString = "안녕하세요 고양이입니다"
-    @State private var isRecording = false
+    //@State var speechRecognizerString = "안녕하세요 고양이입니다"
     
+    @State private var isRecording = false
+    @StateObject var speechRecognizer = SpeechRecognizer()
+    
+    @State var  isCatTalk = false
    //====BODY===///
     var body: some View {
        
@@ -28,17 +31,32 @@ struct TopLayer_UI_View: View {
                 
                 Layer3(nameOf3dModel:nameOf3dModel)
                     .environmentObject(OrientationInfo())
+                //khi user nói
+                if(isCatTalk == false){
+                    if(isRecording == true){
+                        layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript)
+                            .environmentObject(OrientationInfo())
+                            .onAppear(){
+                                speechRecognizer.transcribe()
+                            }
+                            .onDisappear(){
+                                speechRecognizer.stopTranscribing()
+                            }
+                    }
+                    else
+                    {
+                        Layer1(isRecording:$isRecording, isCatTalk: $isCatTalk)
+                            .environmentObject(OrientationInfo())
+                        
+                    }
+                }
+                //khi cat nói
+                if(isCatTalk == true){
+                    layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()!)
+                        .environmentObject(OrientationInfo())
+                        
+                }
                 
-                if(isRecording == true){
-                    layer4(isRecording:$isRecording, speechRecognizerString: $speechRecognizerString)
-                        .environmentObject(OrientationInfo())
-                }
-                else
-                {
-                    Layer1(isRecording:$isRecording, speechRecognizerString: $speechRecognizerString)
-                        .environmentObject(OrientationInfo())
-                    
-                }
             }
             .environmentObject(env)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
@@ -52,10 +70,10 @@ struct TopLayer_UI_View: View {
 struct Layer1:View{
     @EnvironmentObject var env: ENVOBJECT
     @EnvironmentObject var orientationInfo: OrientationInfo
-    @StateObject var speechRecognizer = SpeechRecognizer()
-    @Binding var isRecording:Bool
-    @Binding var speechRecognizerString:String
     
+    @Binding var isRecording:Bool
+   
+    @Binding var isCatTalk:Bool
     //===BODY===//
     var body: some View {
         if(orientationInfo.orientation == .portrait){
@@ -108,14 +126,14 @@ struct Layer1:View{
                             LongPressGesture()
                                 .onEnded { _ in
                                     print("Loooong")
-                                    callSpeech2()
+                                    isRecording = true
                                 }
                         )
                         .highPriorityGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     print("Tap")
-                                    callSpeech1()
+                                    isCatTalk = true
                                 }
                         )
                 }//end Hstack
@@ -170,7 +188,20 @@ struct Layer1:View{
                         }
                     }
                     .opacity(0.7)
-                    
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Loooong")
+                                    isRecording = true
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap")
+                                    isCatTalk = true
+                                }
+                        )
                 }//end Hstack
                 .padding(10)
             }
@@ -178,28 +209,7 @@ struct Layer1:View{
         }
     }
     
-    //hàm gọi bật hiện cửa sổ nói chuyện
-    func callSpeech1()
-    {
-        speechRecognizerString = env.arr_Text.randomElement()!
-        
-        isRecording.toggle()
-    }
-    func callSpeech2()
-    {
-       
-        
-        print("Circular Button tapped CALL SpeechRecorgnizer.swift")
-        print("isRecording: \(!isRecording)")
-        if !isRecording {
-            speechRecognizer.transcribe()
-           
-        } else {
-            speechRecognizer.stopTranscribing()
-        }
-        speechRecognizerString = speechRecognizer.transcript
-        isRecording.toggle()
-    }
+   
 }
 
 
@@ -375,7 +385,7 @@ struct Layer3:View{
 struct layer4:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
     @Binding var isRecording:Bool
-    @Binding var speechRecognizerString:String
+     var speechRecognizerString:String
     @State var scale = 0.1
     var body: some View {
         if(orientationInfo.orientation == .portrait){
@@ -415,6 +425,61 @@ struct layer4:View{
                         .cornerRadius(15)
                         .onTapGesture {
                             isRecording.toggle()
+                        }
+                }
+                .padding()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottomTrailing)
+            .scaleEffect(scale)
+            .animate{ scale = 1 }
+        }
+    }
+}
+
+//layer chứa text nói của cat
+struct layer5:View{
+    @EnvironmentObject var orientationInfo: OrientationInfo
+    @Binding var isCatTalk:Bool
+     var speechRecognizerString:String
+    @State var scale = 0.1
+    var body: some View {
+        if(orientationInfo.orientation == .portrait){
+            ZStack{
+                VStack{
+                    Spacer()
+                    Text(speechRecognizerString)
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
+                        .background(.gray.opacity(0.7))
+                        .border(.gray, width: 1)
+                        .cornerRadius(15)
+                        .onTapGesture {
+                            isCatTalk.toggle()
+                        }
+                }
+                .padding()
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+            .scaleEffect(scale)
+            .animate{ scale = 1 }
+        }
+        
+        if(orientationInfo.orientation == .landscape){
+            ZStack{
+                VStack{
+                   Spacer()
+                    Text(speechRecognizerString)
+                        .minimumScaleFactor(0.5)
+                        .foregroundColor(.white)
+                        .padding(5)
+                        .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
+                        .background(.gray.opacity(0.7))
+                        .border(.gray, width: 1)
+                        .cornerRadius(15)
+                        .onTapGesture {
+                            isCatTalk.toggle()
                         }
                 }
                 .padding()
