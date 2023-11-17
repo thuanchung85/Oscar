@@ -174,26 +174,41 @@ struct Layer3:View{
     var nameOf3dModel:String
     var body: some View {
         if(orientationInfo.orientation == .portrait){
-            VStack{
-                
-                //name of 3d character
-                HStack(alignment: .center){
+            ZStack{
+                VStack{
                     
-                    Text(nameOf3dModel)
-                        .frame(width: 150, height: 50, alignment: .center)
-                        .scaledToFit()
-                        .minimumScaleFactor(0.5)
-                        .font(.largeTitle)
-                        .foregroundStyle(
-                            .linearGradient(colors: [Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
-                            .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
-                            .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
-                            .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
-                        )
-                        .padding(.horizontal,15)
-                        .shadow(color: .blue, radius: 1)
+                    //name of 3d character
+                    HStack(alignment: .center){
+                        
+                        Text(nameOf3dModel)
+                            .frame(width: 150, height: 50, alignment: .center)
+                            .scaledToFit()
+                            .minimumScaleFactor(0.5)
+                            .font(.largeTitle)
+                            .foregroundStyle(
+                                .linearGradient(colors: [Color(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)), Color(#colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing)
+                                .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                                .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                                .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                            )
+                            .padding(.horizontal,15)
+                            .shadow(color: .blue, radius: 1)
+                        
+                        
+                        
+                    }
+                    .frame(width: 200, height: 60, alignment: .center)
+                    .background(.white.opacity(0.5))
+                    .cornerRadius(30)
+                    .padding(.top,10)
+                    .padding(.trailing,10)
+                    Spacer()
                     
                     
+                    
+                    
+                }//end Vstack
+                VStack{
                     Button(action: {
                         print("Circular Button tapped")
                     }) {
@@ -226,20 +241,12 @@ struct Layer3:View{
                             
                         }
                     }
+                    .padding(.top,15)
+                    .padding(.trailing,15)
                     .opacity(0.7)
-                }
-                .frame(width: 250, height: 60, alignment: .center)
-                .background(.white.opacity(0.5))
-                .cornerRadius(30)
-                .padding(.top,10)
-                .padding(.trailing,10)
-                Spacer()
-                
-                
-                
-                
-            }//end Vstack
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .trailing)
+                }.frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .topTrailing)
+            }
+            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
         }
         
         if(orientationInfo.orientation == .landscape){
