@@ -12,9 +12,9 @@ import SwiftUI
 
 struct TopLayer_UI_View: View {
     
-   
+    @EnvironmentObject private var env: ENVOBJECT
     var nameOf3dModel :String
-    @State var speechRecognizerString = ""
+    @State var speechRecognizerString = "안녕하세요 고양이입니다"
     @State private var isRecording = false
     
    //====BODY===///
@@ -30,7 +30,7 @@ struct TopLayer_UI_View: View {
                     .environmentObject(OrientationInfo())
                 
                 if(isRecording == true){
-                    layer4(isRecording:$isRecording)
+                    layer4(isRecording:$isRecording, speechRecognizerString: $speechRecognizerString)
                         .environmentObject(OrientationInfo())
                 }
                 else
@@ -40,6 +40,7 @@ struct TopLayer_UI_View: View {
                     
                 }
             }
+            .environmentObject(env)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
         
     }
@@ -49,7 +50,7 @@ struct TopLayer_UI_View: View {
 
 //layer chưa nút micro
 struct Layer1:View{
-   
+    @EnvironmentObject var env: ENVOBJECT
     @EnvironmentObject var orientationInfo: OrientationInfo
     @StateObject var speechRecognizer = SpeechRecognizer()
     @Binding var isRecording:Bool
@@ -63,7 +64,7 @@ struct Layer1:View{
                 //====BUTTON MICRO====//
                 HStack{
                     Button(action: {
-                        callSpeech()
+                        //callSpeech()
                         
                     }) {
                         if #available(iOS 16.0, *) {
@@ -103,6 +104,20 @@ struct Layer1:View{
                     }
                     .opacity(0.7)
                     .padding(.bottom,10)
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Loooong")
+                                    callSpeech2()
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap")
+                                    callSpeech1()
+                                }
+                        )
                 }//end Hstack
                 .padding(.bottom,10)
             }
@@ -117,7 +132,7 @@ struct Layer1:View{
                 HStack{
                     Spacer()
                     Button(action: {
-                        callSpeech()
+                        //callSpeech()
                     }) {
                         if #available(iOS 16.0, *) {
                             RoundedRectangle(cornerRadius: 50)
@@ -164,15 +179,25 @@ struct Layer1:View{
     }
     
     //hàm gọi bật hiện cửa sổ nói chuyện
-    func callSpeech()
+    func callSpeech1()
     {
+        speechRecognizerString = env.arr_Text.randomElement()!
+        
+        isRecording.toggle()
+    }
+    func callSpeech2()
+    {
+       
+        
         print("Circular Button tapped CALL SpeechRecorgnizer.swift")
+        print("isRecording: \(!isRecording)")
         if !isRecording {
             speechRecognizer.transcribe()
+           
         } else {
             speechRecognizer.stopTranscribing()
         }
-        
+        speechRecognizerString = speechRecognizer.transcript
         isRecording.toggle()
     }
 }
@@ -350,14 +375,14 @@ struct Layer3:View{
 struct layer4:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
     @Binding var isRecording:Bool
-    
-    
+    @Binding var speechRecognizerString:String
+    @State var scale = 0.1
     var body: some View {
         if(orientationInfo.orientation == .portrait){
             ZStack{
                 VStack{
                     Spacer()
-                    Text("HELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLO")
+                    Text(speechRecognizerString)
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.black)
                         .padding(5)
@@ -372,13 +397,15 @@ struct layer4:View{
                 .padding()
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+            .scaleEffect(scale)
+            .animate{ scale = 1 }
         }
         
         if(orientationInfo.orientation == .landscape){
             ZStack{
                 VStack{
                    Spacer()
-                    Text("HELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLOHELLO HELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLOHELLO HELLO")
+                    Text(speechRecognizerString)
                         .minimumScaleFactor(0.5)
                         .foregroundColor(.black)
                         .padding(5)
@@ -393,7 +420,8 @@ struct layer4:View{
                 .padding()
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .bottomTrailing)
-        
+            .scaleEffect(scale)
+            .animate{ scale = 1 }
         }
     }
 }

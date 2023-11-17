@@ -65,3 +65,25 @@ struct AvatarView: View {
             .shadow(radius: 10)
     }
 }
+
+extension View {
+    func animate(using animation: Animation = .easeInOut(duration: 0.5), _ action: @escaping () -> Void) -> some View {
+        onAppear {
+            withAnimation(animation) {
+                action()
+            }
+        }
+    }
+}
+// Create an immediate, looping animation
+extension View {
+    func animateForever(using animation: Animation = .easeInOut(duration: 1), autoreverses: Bool = false, _ action: @escaping () -> Void) -> some View {
+        let repeated = animation.repeatForever(autoreverses: autoreverses)
+
+        return onAppear {
+            withAnimation(repeated) {
+                action()
+            }
+        }
+    }
+}
