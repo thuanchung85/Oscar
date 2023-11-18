@@ -34,7 +34,7 @@ struct TopLayer_UI_View: View {
                 //khi user nói
                 if(isCatTalk == false){
                     if(isRecording == true){
-                        layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript)
+                        layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk)
                             .environmentObject(OrientationInfo())
                             .onAppear(){
                                 speechRecognizer.transcribe()
@@ -45,7 +45,7 @@ struct TopLayer_UI_View: View {
                     }
                     else
                     {
-                        Layer1(isRecording:$isRecording, isCatTalk: $isCatTalk)
+                        Layer1(isRecording:$isRecording)
                             .environmentObject(OrientationInfo())
                         
                     }
@@ -73,7 +73,7 @@ struct Layer1:View{
     
     @Binding var isRecording:Bool
    
-    @Binding var isCatTalk:Bool
+    
     //===BODY===//
     var body: some View {
         if(orientationInfo.orientation == .portrait){
@@ -126,14 +126,14 @@ struct Layer1:View{
                             LongPressGesture()
                                 .onEnded { _ in
                                     print("Loooong")
-                                    isRecording = true
+                                    //isRecording = true
                                 }
                         )
                         .highPriorityGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     print("Tap")
-                                    isCatTalk = true
+                                    isRecording = true
                                 }
                         )
                 }//end Hstack
@@ -192,14 +192,14 @@ struct Layer1:View{
                             LongPressGesture()
                                 .onEnded { _ in
                                     print("Loooong")
-                                    isRecording = true
+                                    //isRecording = true
                                 }
                         )
                         .highPriorityGesture(
                             TapGesture()
                                 .onEnded { _ in
                                     print("Tap")
-                                    isCatTalk = true
+                                    isRecording = true
                                 }
                         )
                 }//end Hstack
@@ -385,8 +385,10 @@ struct Layer3:View{
 struct layer4:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
     @Binding var isRecording:Bool
-     var speechRecognizerString:String
+    var speechRecognizerString:String
+    @Binding var isCatTalk:Bool
     @State var scale = 0.1
+    
     var body: some View {
         if(orientationInfo.orientation == .portrait){
             ZStack{
@@ -401,7 +403,9 @@ struct layer4:View{
                         .border(.white, width: 1)
                         .cornerRadius(15)
                         .onTapGesture {
-                            isRecording.toggle()
+                            isCatTalk = true
+                            isRecording = false
+                           
                         }
                 }
                 .padding()
@@ -424,7 +428,8 @@ struct layer4:View{
                         .border(.white, width: 1)
                         .cornerRadius(15)
                         .onTapGesture {
-                            isRecording.toggle()
+                            isCatTalk = true
+                            isRecording = false
                         }
                 }
                 .padding()
