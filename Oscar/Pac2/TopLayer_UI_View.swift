@@ -52,7 +52,7 @@ struct TopLayer_UI_View: View {
                 }
                 //khi cat nói
                 if(isCatTalk == true){
-                    layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()!)
+                    layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
                         .environmentObject(OrientationInfo())
                         
                 }
@@ -394,19 +394,22 @@ struct layer4:View{
             ZStack{
                 VStack{
                     Spacer()
-                    Text(speechRecognizerString)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.black)
-                        .padding(5)
-                        .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
-                        .background(.white.opacity(0.8))
-                        .border(.white, width: 1)
-                        .cornerRadius(15)
-                        .onTapGesture {
-                            isCatTalk = true
-                            isRecording = false
-                           
-                        }
+                    ScrollView{
+                        Text(speechRecognizerString)
+                            .multilineTextAlignment(.center)
+                            .minimumScaleFactor(0.5)
+                            .foregroundColor(.black)
+                            .padding(5)
+                            .onTapGesture {
+                                isCatTalk = true
+                                isRecording = false
+                                
+                            }
+                    }
+                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
+                    .background(.white.opacity(0.8))
+                    .border(.white, width: 1)
+                    .cornerRadius(15)
                 }
                 .padding()
             }
@@ -419,18 +422,20 @@ struct layer4:View{
             ZStack{
                 VStack{
                    Spacer()
-                    Text(speechRecognizerString)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.black)
-                        .padding(5)
-                        .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
-                        .background(.white.opacity(0.8))
-                        .border(.white, width: 1)
-                        .cornerRadius(15)
-                        .onTapGesture {
-                            isCatTalk = true
-                            isRecording = false
-                        }
+                    ScrollView{
+                        Text(speechRecognizerString)
+                            .minimumScaleFactor(0.5)
+                            .foregroundColor(.black)
+                            .padding(5)
+                            .onTapGesture {
+                                isCatTalk = true
+                                isRecording = false
+                            }
+                    }
+                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
+                    .background(.white.opacity(0.8))
+                    .border(.white, width: 1)
+                    .cornerRadius(15)
                 }
                 .padding()
             }
@@ -452,17 +457,19 @@ struct layer5:View{
             ZStack{
                 VStack{
                     Spacer()
-                    Text(speechRecognizerString)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.white)
-                        .padding(5)
-                        .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
-                        .background(.gray.opacity(0.7))
-                        .border(.gray, width: 1)
-                        .cornerRadius(15)
-                        .onTapGesture {
-                            isCatTalk.toggle()
-                        }
+                    ScrollView{
+                        Text(speechRecognizerString)
+                            .lineLimit(nil)
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .onTapGesture {
+                                isCatTalk.toggle()
+                            }
+                    }
+                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
+                    .background(.gray.opacity(0.7))
+                    .border(.gray, width: 1)
+                    .cornerRadius(15)
                 }
                 .padding()
             }
@@ -475,17 +482,18 @@ struct layer5:View{
             ZStack{
                 VStack{
                    Spacer()
-                    Text(speechRecognizerString)
-                        .minimumScaleFactor(0.5)
-                        .foregroundColor(.white)
-                        .padding(5)
-                        .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
-                        .background(.gray.opacity(0.7))
-                        .border(.gray, width: 1)
-                        .cornerRadius(15)
-                        .onTapGesture {
-                            isCatTalk.toggle()
-                        }
+                    ScrollView{
+                        Text(speechRecognizerString)
+                            .foregroundColor(.white)
+                            .padding(10)
+                            .onTapGesture {
+                                isCatTalk.toggle()
+                            }
+                    }
+                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
+                    .background(.gray.opacity(0.7))
+                    .border(.gray, width: 1)
+                    .cornerRadius(15)
                 }
                 .padding()
             }
