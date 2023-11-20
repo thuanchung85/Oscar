@@ -396,20 +396,20 @@ struct layer4:View{
                     Spacer()
                     ScrollView{
                         Text(speechRecognizerString)
-                            .multilineTextAlignment(.center)
                             .minimumScaleFactor(0.5)
                             .foregroundColor(.black)
-                            .padding(5)
-                            .onTapGesture {
-                                isCatTalk = true
-                                isRecording = false
-                                
-                            }
+                            .padding(10)
+                           
                     }
                     .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
                     .background(.white.opacity(0.8))
                     .border(.white, width: 1)
                     .cornerRadius(15)
+                    .onTapGesture {
+                        isCatTalk = true
+                        isRecording = false
+                        
+                    }
                 }
                 .padding()
             }
@@ -426,16 +426,17 @@ struct layer4:View{
                         Text(speechRecognizerString)
                             .minimumScaleFactor(0.5)
                             .foregroundColor(.black)
-                            .padding(5)
-                            .onTapGesture {
-                                isCatTalk = true
-                                isRecording = false
-                            }
+                            .padding(10)
+                            
                     }
                     .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
                     .background(.white.opacity(0.8))
                     .border(.white, width: 1)
                     .cornerRadius(15)
+                    .onTapGesture {
+                        isCatTalk = true
+                        isRecording = false
+                    }
                 }
                 .padding()
             }
@@ -462,14 +463,15 @@ struct layer5:View{
                             .lineLimit(nil)
                             .foregroundColor(.white)
                             .padding(10)
-                            .onTapGesture {
-                                isCatTalk.toggle()
-                            }
+                            
                     }
                     .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
                     .background(.gray.opacity(0.7))
                     .border(.gray, width: 1)
                     .cornerRadius(15)
+                    .onTapGesture {
+                        isCatTalk.toggle()
+                    }
                 }
                 .padding()
             }
@@ -486,14 +488,15 @@ struct layer5:View{
                         Text(speechRecognizerString)
                             .foregroundColor(.white)
                             .padding(10)
-                            .onTapGesture {
-                                isCatTalk.toggle()
-                            }
+                           
                     }
                     .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
                     .background(.gray.opacity(0.7))
                     .border(.gray, width: 1)
                     .cornerRadius(15)
+                    .onTapGesture {
+                        isCatTalk.toggle()
+                    }
                 }
                 .padding()
             }
