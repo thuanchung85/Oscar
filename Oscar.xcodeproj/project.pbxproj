@@ -23,6 +23,7 @@
 		E09942DD2B0724E300DE91C4 /* HelperUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DC2B0724E300DE91C4 /* HelperUI.swift */; };
 		E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */; };
 		E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */; };
+		E0BDD2C62B0AEA70003A3854 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0BDD2C62B0AEA70003A3854 /* ChatGPTSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +161,9 @@
 			dependencies = (
 			);
 			name = Oscar;
+			packageProductDependencies = (
+				E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */,
+			);
 			productName = Oscar;
 			productReference = E096E7E22B05E08200794D0B /* Oscar.app */;
 			productType = "com.apple.product-type.application";
@@ -187,6 +192,9 @@
 				Base,
 			);
 			mainGroup = E096E7D92B05E08200794D0B;
+			packageReferences = (
+				E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
+			);
 			productRefGroup = E096E7E32B05E08200794D0B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -439,6 +447,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/alfianlosari/ChatGPTSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			productName = ChatGPTSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E096E7DA2B05E08200794D0B /* Project object */;
 }
