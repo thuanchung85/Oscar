@@ -14,9 +14,6 @@ struct TopLayer_UI_View: View {
     
     @EnvironmentObject private var env: ENVOBJECT
     var nameOf3dModel :String
-    //@State var speechRecognizerString = "안녕하세요 고양이입니다"
-    
-    //@State private var isRecording = false
     
     @StateObject var speechRecognizer = SpeechRecognizer()
     @StateObject private var chatGPT_viewModel = ChatGPT_ViewModel()
@@ -26,6 +23,7 @@ struct TopLayer_UI_View: View {
     @State var isInChatMode = false
     
     @State var chatBotString = ""
+    
    //====BODY===///
     var body: some View {
        
@@ -79,47 +77,7 @@ struct TopLayer_UI_View: View {
                     }
                 }
                 
-                /*
-                //khi user nói
-                if(isCatTalk == false){
-                    if(isRecording == true){
-                        layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk)
-                            .environmentObject(OrientationInfo())
-                            .onAppear(){
-                                speechRecognizer.transcribe()
-                            }
-                            .onDisappear(){
-                                speechRecognizer.stopTranscribing()
-                            }
-                    }
-                    else
-                    {
-                        //khi cat nói
-                        if(isCatTalk == true){
-                            layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
-                                .environmentObject(OrientationInfo())
-                                
-                        }
-                        
-                        else{
-                            if (isCancelChat == false){
-                                layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk)
-                                    .environmentObject(OrientationInfo())
-                                    .onAppear(){
-                                        speechRecognizer.transcribe()
-                                    }
-                                    .onDisappear(){
-                                        speechRecognizer.stopTranscribing()
-                                    }
-                            }
-                            else{
-                               
-                            }
-                        }
-                        
-                    }
-                }
-               */
+                
                 
             }
             .environmentObject(env)
@@ -460,23 +418,28 @@ struct layer4:View{
     @Binding var isInChatMode:Bool
     @State var scale = 0.1
     
+    let dtxt = "Your secret API keys are listed below. Please note that we do not display your secret API keys again after you generate them. Do not share your API key with others, or expose it in the browser or other client-side code. In order to protect the security of your account, OpenAI may also automatically disable any API key that we've found has leaked publicly."
+  
+    
+    //===BODY===//
     var body: some View {
         if(orientationInfo.orientation == .portrait){
             ZStack{
                 VStack{
                     Spacer()
-                    ScrollView{
-                        Text(speechRecognizerString)
-                            .minimumScaleFactor(0.5)
-                            .foregroundColor(.black)
-                            .padding(10)
-                          
-                           
+                    VStack{
+                        ScrollView{
+                            Text(speechRecognizerString)
+                                .foregroundColor(.black)
+                        }
+                        .padding(10)
                     }
                     .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .leading)
                     .background(.white.opacity(0.8))
-                    .border(.white.opacity(0.2), width: 1)
                     .cornerRadius(20)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(.white).opacity(0.5), lineWidth: 1))
+                    
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -507,17 +470,19 @@ struct layer4:View{
             ZStack{
                 VStack{
                    Spacer()
-                    ScrollView{
-                        Text(speechRecognizerString)
-                            .minimumScaleFactor(0.5)
-                            .foregroundColor(.black)
-                            .padding(10)
-                            
+                    VStack{
+                        ScrollView{
+                            Text(speechRecognizerString)
+                                .foregroundColor(.black)
+                        }
+                        .padding(10)
                     }
                     .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .leading)
                     .background(.white.opacity(0.8))
-                    .border(.white.opacity(0.2), width: 1)
                     .cornerRadius(20)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(.white).opacity(0.5), lineWidth: 1))
+                    
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -553,27 +518,27 @@ struct layer5:View{
     @Binding var isInChatMode:Bool
      var chatBotString:String
     @State var scale = 0.1
+    
+    //====BODY====//
     var body: some View {
         if(orientationInfo.orientation == .portrait){
             ZStack{
                 VStack{
                     Spacer()
-                    ScrollView{
-                        Text(chatBotString)
-                            .lineLimit(nil)
-                            .foregroundColor(.black)
-                            .padding(10)
-                            
+                    VStack{
+                        ScrollView{
+                            Text(chatBotString)
+                                .foregroundColor(.black)
+                        }
+                        .padding(10)
                     }
                     .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .leading)
-                    .background(
-                        .linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7)
-                        //.shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
-                        //.shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
-                        //.shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
-                    )
-                    .border(.blue.opacity(0.2), width: 1)
+                   
+                    .background(.linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7))
                     .cornerRadius(20)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)).opacity(0.5), lineWidth: 1))
+                    
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -604,21 +569,20 @@ struct layer5:View{
             ZStack{
                 VStack{
                    Spacer()
-                    ScrollView{
-                        Text(chatBotString)
-                            .foregroundColor(.black)
-                            .padding(10)
-                           
+                    VStack{
+                        ScrollView{
+                            Text(chatBotString)
+                                .foregroundColor(.black)
+                        }
+                        .padding(10)
                     }
                     .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .leading)
-                    .background(
-                        .linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7)
-                        //.shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
-                        //.shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
-                        //.shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
-                    )
-                    .border(.blue.opacity(0.2), width: 1)
+                    
+                    .background(.linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7))
                     .cornerRadius(20)
+                    .overlay(RoundedRectangle(cornerRadius: 20)
+                        .stroke(Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)).opacity(0.5), lineWidth: 1))
+                    
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
