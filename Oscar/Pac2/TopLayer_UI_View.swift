@@ -20,6 +20,8 @@ struct TopLayer_UI_View: View {
     @StateObject var speechRecognizer = SpeechRecognizer()
     
     @State var  isCatTalk = false
+    @State var  isUserTalk = true
+    @State var isInChatMode = false
    //====BODY===///
     var body: some View {
        
@@ -31,6 +33,34 @@ struct TopLayer_UI_View: View {
                 
                 Layer3(nameOf3dModel:nameOf3dModel)
                     .environmentObject(OrientationInfo())
+                
+                //khi không chat với nhau
+                if(isInChatMode == false)
+                {
+                    Layer1( isInChatMode: $isInChatMode)
+                        .environmentObject(OrientationInfo())
+                }
+                //khi chat với nhau
+                if(isInChatMode == true)
+                {
+                    if(isCatTalk == true) && (isUserTalk == false){
+                        layer5(isCatTalk: $isCatTalk, isUserTalk: $isUserTalk, isInChatMode: $isInChatMode, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
+                            .environmentObject(OrientationInfo())
+                            
+                    }
+                    if(isCatTalk == false) && (isUserTalk == true){
+                        layer4(isUserTalk:$isUserTalk, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk, isInChatMode: $isInChatMode)
+                            .environmentObject(OrientationInfo())
+                            .onAppear(){
+                                speechRecognizer.transcribe()
+                            }
+                            .onDisappear(){
+                                speechRecognizer.stopTranscribing()
+                            }
+                    }
+                }
+                
+                /*
                 //khi user nói
                 if(isCatTalk == false){
                     if(isRecording == true){
@@ -45,17 +75,32 @@ struct TopLayer_UI_View: View {
                     }
                     else
                     {
-                        Layer1(isRecording:$isRecording)
-                            .environmentObject(OrientationInfo())
+                        //khi cat nói
+                        if(isCatTalk == true){
+                            layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
+                                .environmentObject(OrientationInfo())
+                                
+                        }
+                        
+                        else{
+                            if (isCancelChat == false){
+                                layer4(isRecording:$isRecording, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk)
+                                    .environmentObject(OrientationInfo())
+                                    .onAppear(){
+                                        speechRecognizer.transcribe()
+                                    }
+                                    .onDisappear(){
+                                        speechRecognizer.stopTranscribing()
+                                    }
+                            }
+                            else{
+                               
+                            }
+                        }
                         
                     }
                 }
-                //khi cat nói
-                if(isCatTalk == true){
-                    layer5(isCatTalk: $isCatTalk, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
-                        .environmentObject(OrientationInfo())
-                        
-                }
+               */
                 
             }
             .environmentObject(env)
@@ -71,7 +116,7 @@ struct Layer1:View{
     @EnvironmentObject var env: ENVOBJECT
     @EnvironmentObject var orientationInfo: OrientationInfo
     
-    @Binding var isRecording:Bool
+    @Binding var isInChatMode:Bool
    
     
     //===BODY===//
@@ -133,7 +178,8 @@ struct Layer1:View{
                             TapGesture()
                                 .onEnded { _ in
                                     print("Tap")
-                                    isRecording = true
+                                    isInChatMode = true
+                                    //isRecording = true
                                 }
                         )
                 }//end Hstack
@@ -199,7 +245,7 @@ struct Layer1:View{
                             TapGesture()
                                 .onEnded { _ in
                                     print("Tap")
-                                    isRecording = true
+                                    isInChatMode = true
                                 }
                         )
                 }//end Hstack
@@ -384,9 +430,10 @@ struct Layer3:View{
 //layer chứa text nói của user
 struct layer4:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
-    @Binding var isRecording:Bool
+    @Binding var isUserTalk:Bool
     var speechRecognizerString:String
     @Binding var isCatTalk:Bool
+    @Binding var isInChatMode:Bool
     @State var scale = 0.1
     
     var body: some View {
@@ -405,11 +452,24 @@ struct layer4:View{
                     .background(.white.opacity(0.8))
                     .border(.white, width: 1)
                     .cornerRadius(15)
-                    .onTapGesture {
-                        isCatTalk = true
-                        isRecording = false
-                        
-                    }
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Cancel chat")
+                                    isInChatMode = false
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap cat message")
+                                    isCatTalk = true
+                                    isUserTalk = false
+                                }
+                        )
+                   
                 }
                 .padding()
             }
@@ -433,10 +493,23 @@ struct layer4:View{
                     .background(.white.opacity(0.8))
                     .border(.white, width: 1)
                     .cornerRadius(15)
-                    .onTapGesture {
-                        isCatTalk = true
-                        isRecording = false
-                    }
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Cancel chat")
+                                    isInChatMode = false
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap cat message")
+                                    isCatTalk = true
+                                    isUserTalk = false
+                                }
+                        )
                 }
                 .padding()
             }
@@ -451,6 +524,8 @@ struct layer4:View{
 struct layer5:View{
     @EnvironmentObject var orientationInfo: OrientationInfo
     @Binding var isCatTalk:Bool
+    @Binding var isUserTalk:Bool
+    @Binding var isInChatMode:Bool
      var speechRecognizerString:String
     @State var scale = 0.1
     var body: some View {
@@ -469,9 +544,24 @@ struct layer5:View{
                     .background(.gray.opacity(0.7))
                     .border(.gray, width: 1)
                     .cornerRadius(15)
-                    .onTapGesture {
-                        isCatTalk.toggle()
-                    }
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Cancel chat")
+                                    isInChatMode = false
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap cat message")
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
+                    
                 }
                 .padding()
             }
@@ -494,9 +584,23 @@ struct layer5:View{
                     .background(.gray.opacity(0.7))
                     .border(.gray, width: 1)
                     .cornerRadius(15)
-                    .onTapGesture {
-                        isCatTalk.toggle()
-                    }
+                    .simultaneousGesture(
+                            LongPressGesture()
+                                .onEnded { _ in
+                                    print("Cancel chat")
+                                    isInChatMode = false
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
+                        .highPriorityGesture(
+                            TapGesture()
+                                .onEnded { _ in
+                                    print("Tap cat message")
+                                    isCatTalk = false
+                                    isUserTalk = true
+                                }
+                        )
                 }
                 .padding()
             }
