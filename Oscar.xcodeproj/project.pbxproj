@@ -23,9 +23,9 @@
 		E09942DD2B0724E300DE91C4 /* HelperUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DC2B0724E300DE91C4 /* HelperUI.swift */; };
 		E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */; };
 		E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */; };
-		E0BDD2C62B0AEA70003A3854 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */; };
 		E0BDD2C92B0AEB46003A3854 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BDD2C82B0AEB46003A3854 /* ChatMessageModel.swift */; };
 		E0BDD2CB2B0AED14003A3854 /* ChatGPT_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BDD2CA2B0AED14003A3854 /* ChatGPT_ViewModel.swift */; };
+		E0BDD2CE2B0B0441003A3854 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0BDD2CD2B0B0441003A3854 /* ChatGPTSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,7 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0BDD2C62B0AEA70003A3854 /* ChatGPTSwift in Frameworks */,
+				E0BDD2CE2B0B0441003A3854 /* ChatGPTSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,7 +176,7 @@
 			);
 			name = Oscar;
 			packageProductDependencies = (
-				E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */,
+				E0BDD2CD2B0B0441003A3854 /* ChatGPTSwift */,
 			);
 			productName = Oscar;
 			productReference = E096E7E22B05E08200794D0B /* Oscar.app */;
@@ -207,7 +207,7 @@
 			);
 			mainGroup = E096E7D92B05E08200794D0B;
 			packageReferences = (
-				E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
+				E0BDD2CC2B0B0441003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */,
 			);
 			productRefGroup = E096E7E32B05E08200794D0B /* Products */;
 			projectDirPath = "";
@@ -465,20 +465,20 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
+		E0BDD2CC2B0B0441003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alfianlosari/ChatGPTSwift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				kind = exactVersion;
+				version = 1.3.3;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */ = {
+		E0BDD2CD2B0B0441003A3854 /* ChatGPTSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E0BDD2C42B0AEA70003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
+			package = E0BDD2CC2B0B0441003A3854 /* XCRemoteSwiftPackageReference "ChatGPTSwift" */;
 			productName = ChatGPTSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
