@@ -11,7 +11,8 @@ import ChatGPTSwift
 
 @MainActor
 class ChatGPT_ViewModel:ObservableObject{
-    let api = ChatGPTAPI(apiKey: apiGPTKey)
+    let config = AppConfiguration()
+    let api = ChatGPTAPI(apiKey: AppConfiguration().apiGPTKey)
   
     @Published var arr_chatMessages = [ChatMessageModel]()
     @Published var isWaitingForResponse = false

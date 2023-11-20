@@ -26,7 +26,7 @@ struct ContentView: View {
         ZStack{
            
             //3d Character view
-            MidLayer_3d_View( arr_Model3D_Data: $arr_Model3D_Data, currentModel3DFile: self.env.currentMode.modelName)
+            //MidLayer_3d_View( arr_Model3D_Data: $arr_Model3D_Data, currentModel3DFile: self.env.currentMode.modelName)
            
             //=====UI view=====///
             TopLayer_UI_View(nameOf3dModel: String(env.currentMode.name))
