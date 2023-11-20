@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		84CF23C02B0B2F0200ACA90A /* TTSHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CF23BF2B0B2F0200ACA90A /* TTSHelper.swift */; };
 		E096E7E62B05E08200794D0B /* OscarApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E7E52B05E08200794D0B /* OscarApp.swift */; };
 		E096E7E82B05E08200794D0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E096E7E72B05E08200794D0B /* ContentView.swift */; };
 		E096E7EA2B05E08400794D0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E096E7E92B05E08400794D0B /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		84CF23BF2B0B2F0200ACA90A /* TTSHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TTSHelper.swift; sourceTree = "<group>"; };
 		E096E7E22B05E08200794D0B /* Oscar.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Oscar.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E096E7E52B05E08200794D0B /* OscarApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OscarApp.swift; sourceTree = "<group>"; };
 		E096E7E72B05E08200794D0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -64,6 +66,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		84CF23BE2B0B2EF500ACA90A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				84CF23BF2B0B2F0200ACA90A /* TTSHelper.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		E096E7D92B05E08200794D0B = {
 			isa = PBXGroup;
 			children = (
@@ -83,6 +93,7 @@
 		E096E7E42B05E08200794D0B /* Oscar */ = {
 			isa = PBXGroup;
 			children = (
+				84CF23BE2B0B2EF500ACA90A /* Utils */,
 				E0BDD2CF2B0B1077003A3854 /* chatpgtKey_notPushGitHub.swift */,
 				E0BDD2C72B0AEB36003A3854 /* Pac4 */,
 				E09942DA2B0716D100DE91C4 /* Pac3 */,
@@ -248,6 +259,7 @@
 				E096E8052B06067D00794D0B /* ENVOBJECT.swift in Sources */,
 				E096E7E82B05E08200794D0B /* ContentView.swift in Sources */,
 				E09942DD2B0724E300DE91C4 /* HelperUI.swift in Sources */,
+				84CF23C02B0B2F0200ACA90A /* TTSHelper.swift in Sources */,
 				E096E7E62B05E08200794D0B /* OscarApp.swift in Sources */,
 				E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */,
 				E096E7F72B05E1DB00794D0B /* Model3DData.swift in Sources */,

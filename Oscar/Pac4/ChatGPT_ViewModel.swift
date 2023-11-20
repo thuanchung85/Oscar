@@ -15,7 +15,7 @@ class ChatGPT_ViewModel:ObservableObject{
   
     @Published var arr_chatMessages = [ChatMessageModel]()
     @Published var isWaitingForResponse = false
-    
+    @ObservedObject var synthesizer = SpeechSynthesizer()
     func sendMessage(messageString:String) async throws {
         let userMessage = ChatMessageModel(text: messageString)
         self.arr_chatMessages.append(userMessage)
@@ -33,6 +33,7 @@ class ChatGPT_ViewModel:ObservableObject{
                 let text = lastMessage.text
                 print(text)
                 print(line)
+                TTSHelper.shared.TTS( self.synthesizer.synthesizer, text: text)
                 let newMessage = ChatMessageModel(owner: MessageOwner.bot,text: text + line)
                 self.arr_chatMessages[self.arr_chatMessages.count - 1] = newMessage
             }
