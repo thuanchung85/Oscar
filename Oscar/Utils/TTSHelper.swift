@@ -1,9 +1,3 @@
-//
-//  TTSHepler.swift
-//  Oscar
-//
-//  Created by Nguyễn Văn Dươg on 20/04/2023.
-//
 import AVFoundation
 import Foundation
 import NaturalLanguage
@@ -25,8 +19,23 @@ class TTSHelper {
     func StopTTS() {
         self.synthesizer.stopSpeaking(at: .immediate)
     }
-    func TTS(_ synthesizer: AVSpeechSynthesizer, text: String) {
+    func TTS(_ synthesizer: AVSpeechSynthesizer, text: String, language: String) {
         try? AVAudioSession.sharedInstance().overrideOutputAudioPort(.speaker)
+        let voices = AVSpeechSynthesisVoice.speechVoices()
+        if let voice = voices.first(where: { $0.language.lowercased().contains("\(language)".lowercased())}) {
+            print("\(voice.language)")
+            let utterance = AVSpeechUtterance(string: text)
+            let voice = AVSpeechSynthesisVoice(language: voice.language)
+            utterance.rate = 0.52
+            utterance.volume = 1.0
+            utterance.voice = voice
+            synthesizer.speak(utterance)
+        }
+        else {
+            TTS(synthesizer, text: text)
+        }
+    }
+    func TTS(_ synthesizer: AVSpeechSynthesizer, text: String) {
         let languageRecognizer = NLLanguageRecognizer()
         languageRecognizer.processString(text)
         if let dominantLanguage = languageRecognizer.dominantLanguage {
