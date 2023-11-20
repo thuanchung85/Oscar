@@ -16,12 +16,16 @@ struct TopLayer_UI_View: View {
     var nameOf3dModel :String
     //@State var speechRecognizerString = "안녕하세요 고양이입니다"
     
-    @State private var isRecording = false
+    //@State private var isRecording = false
+    
     @StateObject var speechRecognizer = SpeechRecognizer()
+    @StateObject private var chatGPT_viewModel = ChatGPT_ViewModel()
     
     @State var  isCatTalk = false
     @State var  isUserTalk = true
     @State var isInChatMode = false
+    
+    @State var chatBotString = ""
    //====BODY===///
     var body: some View {
        
@@ -44,18 +48,33 @@ struct TopLayer_UI_View: View {
                 if(isInChatMode == true)
                 {
                     if(isCatTalk == true) && (isUserTalk == false){
-                        layer5(isCatTalk: $isCatTalk, isUserTalk: $isUserTalk, isInChatMode: $isInChatMode, speechRecognizerString: env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()! + env.arr_Text.randomElement()!)
+                        layer5(isCatTalk: $isCatTalk, isUserTalk: $isUserTalk,
+                               isInChatMode: $isInChatMode,
+                               chatBotString: chatBotString)
                             .environmentObject(OrientationInfo())
                             
                     }
                     if(isCatTalk == false) && (isUserTalk == true){
-                        layer4(isUserTalk:$isUserTalk, speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript, isCatTalk: $isCatTalk, isInChatMode: $isInChatMode)
+                        layer4(isUserTalk:$isUserTalk,
+                               speechRecognizerString:  "당신은 말한다: \n" + speechRecognizer.transcript,
+                               isCatTalk: $isCatTalk, isInChatMode: $isInChatMode)
                             .environmentObject(OrientationInfo())
                             .onAppear(){
+                                speechRecognizer.reset()
+                                speechRecognizer.transcript = ""
                                 speechRecognizer.transcribe()
                             }
                             .onDisappear(){
                                 speechRecognizer.stopTranscribing()
+                                //call gpt
+                                Task{
+                                    do{
+                                        try await chatGPT_viewModel.sendMessage( messageString: speechRecognizer.transcript)
+                                    }
+                                    catch{
+                                        print(error.localizedDescription)
+                                    }
+                                }
                             }
                     }
                 }
@@ -105,7 +124,12 @@ struct TopLayer_UI_View: View {
             }
             .environmentObject(env)
             .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
-        
+            .onReceive(chatGPT_viewModel.$arr_chatMessages.throttle(for: 0.5, scheduler: RunLoop.main, latest: true)) { chatMessages in
+                guard !chatMessages.isEmpty else {return}
+               // print("chatMessages: ", chatMessages)
+                self.chatBotString = chatMessages.last!.text
+            }
+           
     }
 }
 
@@ -446,12 +470,13 @@ struct layer4:View{
                             .minimumScaleFactor(0.5)
                             .foregroundColor(.black)
                             .padding(10)
+                          
                            
                     }
-                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
+                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .leading)
                     .background(.white.opacity(0.8))
-                    .border(.white, width: 1)
-                    .cornerRadius(15)
+                    .border(.white.opacity(0.2), width: 1)
+                    .cornerRadius(20)
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -489,10 +514,10 @@ struct layer4:View{
                             .padding(10)
                             
                     }
-                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
+                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .leading)
                     .background(.white.opacity(0.8))
-                    .border(.white, width: 1)
-                    .cornerRadius(15)
+                    .border(.white.opacity(0.2), width: 1)
+                    .cornerRadius(20)
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -526,7 +551,7 @@ struct layer5:View{
     @Binding var isCatTalk:Bool
     @Binding var isUserTalk:Bool
     @Binding var isInChatMode:Bool
-     var speechRecognizerString:String
+     var chatBotString:String
     @State var scale = 0.1
     var body: some View {
         if(orientationInfo.orientation == .portrait){
@@ -534,16 +559,21 @@ struct layer5:View{
                 VStack{
                     Spacer()
                     ScrollView{
-                        Text(speechRecognizerString)
+                        Text(chatBotString)
                             .lineLimit(nil)
-                            .foregroundColor(.white)
+                            .foregroundColor(.black)
                             .padding(10)
                             
                     }
-                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .center)
-                    .background(.gray.opacity(0.7))
-                    .border(.gray, width: 1)
-                    .cornerRadius(15)
+                    .frame(width: UIScreen.main.bounds.width - 20, height: 150, alignment: .leading)
+                    .background(
+                        .linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7)
+                        .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                        .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                        .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                    )
+                    .border(.blue.opacity(0.2), width: 1)
+                    .cornerRadius(20)
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in
@@ -575,15 +605,20 @@ struct layer5:View{
                 VStack{
                    Spacer()
                     ScrollView{
-                        Text(speechRecognizerString)
-                            .foregroundColor(.white)
+                        Text(chatBotString)
+                            .foregroundColor(.black)
                             .padding(10)
                            
                     }
-                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .center)
-                    .background(.gray.opacity(0.7))
-                    .border(.gray, width: 1)
-                    .cornerRadius(15)
+                    .frame(width: UIScreen.main.bounds.width/2 - 20, height: 150, alignment: .leading)
+                    .background(
+                        .linearGradient(colors: [Color(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)), Color(#colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1))], startPoint: .topLeading, endPoint: .bottomTrailing).opacity(0.7)
+                        .shadow(.inner(color: .white.opacity(0.2), radius: 0, x: 1, y: 1))
+                        .shadow(.inner(color: .white.opacity(0.05), radius: 4, x: 0, y: -4))
+                        .shadow(.drop(color: .black.opacity(0.5), radius: 30, y: 30))
+                    )
+                    .border(.blue.opacity(0.2), width: 1)
+                    .cornerRadius(20)
                     .simultaneousGesture(
                             LongPressGesture()
                                 .onEnded { _ in

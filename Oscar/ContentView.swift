@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     
+    
     @StateObject private var env = ENVOBJECT()
    
     @State var arr_Model3D_Data = [Model3D_Data(id: 1, name: "Cat idle", modelName: "Cat_IDLE.usdz", details: "Cat_IDLE.usdz"),
@@ -18,6 +19,7 @@ struct ContentView: View {
                             Model3D_Data(id: 4, name: "Cat sleep", modelName: "Cat_SLEEP.usdz", details: "Cat_SLEEP.usdz"),
                             Model3D_Data(id: 5, name: "Cat laught", modelName: "Cat_LAUGHT.usdz", details: "Cat_LAUGHT.usdz"),]
     
+  
     
    //====BODY===///
     var body: some View {

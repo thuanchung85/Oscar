@@ -24,6 +24,8 @@
 		E09942DF2B073D2E00DE91C4 /* AudioServiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */; };
 		E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */; };
 		E0BDD2C62B0AEA70003A3854 /* ChatGPTSwift in Frameworks */ = {isa = PBXBuildFile; productRef = E0BDD2C52B0AEA70003A3854 /* ChatGPTSwift */; };
+		E0BDD2C92B0AEB46003A3854 /* ChatMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BDD2C82B0AEB46003A3854 /* ChatMessageModel.swift */; };
+		E0BDD2CB2B0AED14003A3854 /* ChatGPT_ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BDD2CA2B0AED14003A3854 /* ChatGPT_ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		E09942DC2B0724E300DE91C4 /* HelperUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperUI.swift; sourceTree = "<group>"; };
 		E09942DE2B073D2E00DE91C4 /* AudioServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioServiceView.swift; sourceTree = "<group>"; };
 		E09942E02B07466600DE91C4 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		E0BDD2C82B0AEB46003A3854 /* ChatMessageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageModel.swift; sourceTree = "<group>"; };
+		E0BDD2CA2B0AED14003A3854 /* ChatGPT_ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatGPT_ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		E096E7E42B05E08200794D0B /* Oscar */ = {
 			isa = PBXGroup;
 			children = (
+				E0BDD2C72B0AEB36003A3854 /* Pac4 */,
 				E09942DA2B0716D100DE91C4 /* Pac3 */,
 				E09942D92B0716C200DE91C4 /* Pac2 */,
 				E09942D82B0716B600DE91C4 /* Pac1 */,
@@ -143,6 +148,15 @@
 				E09942DC2B0724E300DE91C4 /* HelperUI.swift */,
 			);
 			path = HelperUI;
+			sourceTree = "<group>";
+		};
+		E0BDD2C72B0AEB36003A3854 /* Pac4 */ = {
+			isa = PBXGroup;
+			children = (
+				E0BDD2C82B0AEB46003A3854 /* ChatMessageModel.swift */,
+				E0BDD2CA2B0AED14003A3854 /* ChatGPT_ViewModel.swift */,
+			);
+			path = Pac4;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +249,8 @@
 				E096E7F72B05E1DB00794D0B /* Model3DData.swift in Sources */,
 				E09942E12B07466600DE91C4 /* SpeechRecognizer.swift in Sources */,
 				E096E7FB2B05F50200794D0B /* MidLayer_3d_View.swift in Sources */,
+				E0BDD2CB2B0AED14003A3854 /* ChatGPT_ViewModel.swift in Sources */,
+				E0BDD2C92B0AEB46003A3854 /* ChatMessageModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
